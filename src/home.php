@@ -105,34 +105,57 @@
     </div>
   </div>
   <br>
+<?php
+
+$servername = "mysql";
+$db = "cloud_computing";
+$username = "php";
+$password = "php";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $db);
+
+// Check the database connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM posts WHERE isComment = 0";
+
+$result = $conn->query($sql);
+
+?>
+
     <div class="row post-container">
         <?php foreach ($posts as $post) : ?>
-            <?php if ($post['isComment'] == 0) : ?>
-                <div class="col-md-4">
-                    <div class="card mb-4 box-shadow">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <?= $post['title'] ?>
-                                <a data-post-id="<?= $post['postId'] ?>" class="bookmarkBtn btn btn-outline-success btn-sm float-right">Bookmark</a>
-                            </h5>
-                            <p class="card-text">By <?= $post['username'] ?></p>
-                            <p style="font-size:12px" class="card-text"><?= $post['datetime'] ?></p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a href="<?php echo base_url('post/' . $post['postId']); ?>" class="btn btn-sm btn-outline-info">View</a>
-                                </div>
-                                <small class="text-muted">Likes: <?= $post['upvotes'] ?></small>
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <?= $post['title'] ?>
+                            <a data-post-id="<?= $post['postId'] ?>" class="bookmarkBtn btn btn-outline-success btn-sm float-right">Bookmark</a>
+                        </h5>
+                        <p class="card-text">By <?= $post['username'] ?></p>
+                        <p style="font-size:12px" class="card-text"><?= $post['datetime'] ?></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="<?php echo base_url('post/' . $post['postId']); ?>" class="btn btn-sm btn-outline-info">View</a>
                             </div>
+                            <small class="text-muted">Likes: <?= $post['upvotes'] ?></small>
                         </div>
                     </div>
                 </div>
-            <?php endif; ?>
+            </div>
         <?php endforeach; ?>
         <div id="loading-spinner" class="col-md-12 text-center" style="display:none;">
             <i class="fa fa-spinner fa-spin fa-3x"></i>
         </div>
 
     </div>
+<?php
+// Close data connection
+    $conn->close();
+?>
 
 </div>
 

@@ -123,6 +123,10 @@ if ($conn->connect_error) {
 $sql = "SELECT * FROM posts WHERE isComment = 0";
 
 $result = $conn->query($sql);
+$posts = [];
+while ($row = $result->fetch_assoc()) {
+    $posts[] = $row;
+}
 
 ?>
 

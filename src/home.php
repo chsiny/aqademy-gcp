@@ -143,7 +143,7 @@ while ($row = $result->fetch_assoc()) {
                         <p style="font-size:12px" class="card-text"><?= $post['datetime'] ?></p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <a href="<?php echo base_url('post/' . $post['postId']); ?>" class="btn btn-sm btn-outline-info">View</a>
+                                <a href="post.php" class="btn btn-sm btn-outline-info">View</a>
                             </div>
                             <small class="text-muted">Likes: <?= $post['upvotes'] ?></small>
                         </div>

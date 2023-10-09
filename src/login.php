@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        echo "success!"
+        echo "success!";
         // User found, redirect to the home page
         header("Location: home.php");
         exit;

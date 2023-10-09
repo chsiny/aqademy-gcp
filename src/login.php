@@ -1,6 +1,5 @@
 <?php
 
-$conn = new mysqli($host, $user, $pass, $db, $port);
 $servername = "mysql";
 $db = "cloud_computing";
 $username = "php";

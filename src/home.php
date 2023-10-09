@@ -10,12 +10,7 @@
                 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
                 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
                 <script src="/assets/js/search-box.js"></script>
-                <!-- <script>
-                    var searchUrl = "<?php echo base_url('/autocomplete'); ?>";
-                </script>
-                <script>
-                    var postUrl = "<?php echo base_url('/post/')?>";
-                </script> -->
+
                 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
                 <script>
                     function onSubmit(token) {

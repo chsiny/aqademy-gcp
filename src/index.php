@@ -3,7 +3,7 @@
         <head>
                 <title>AQademy</title>
                 <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.css">
-                <link rel="icon" href="/images/a.ico">
+                <link rel="icon" href="/assets/img/a.ico">
                 <script src="/assets/js/jquery-3.6.0.min.js"></script>
                 <script src="/assets/js/bootstrap.js"></script>
                 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">

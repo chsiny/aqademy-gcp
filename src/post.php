@@ -88,7 +88,7 @@
                             <li><a class="dropdown-item" href="#">Bookmarks</a></li>
                             <li><a class="dropdown-item" href="#">Setting</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"> Logout </a></li>
+                            <li><a class="dropdown-item" href="logout.php"> Logout </a></li>
                             </ul>
                         </li>
 

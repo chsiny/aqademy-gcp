@@ -135,7 +135,17 @@ if (isset($_GET['id'])) {
         <button id="upvote-btn" class="btn btn-primary" data-post-id="<?= $post['postId'] ?>" data-url="#">Upvote</button>
         <hr>
         <h3>Comments</h3>
-        <?php if ($comments) { ?>
+        <?php 
+        $sql = "SELECT * FROM comments WHERE postId = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $postId); // "i" indicates an integer
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $comments = [];
+        while ($row = $result->fetch_assoc()) {
+            $comments[] = $row;
+        }
+        if ($comments) { ?>
             <?php foreach ($comments as $comment) : ?>
             <div class="card mb-3">
                 <div class="card-body">

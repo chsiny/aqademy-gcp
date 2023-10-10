@@ -32,32 +32,6 @@
 </style>
         </head>
         <body class="bg-light">
-            <script>
-                // Show select image using file input.
-                function readURL(input) {
-                    $('#default_img').show();
-                    if (input.files && input.files[0]) {
-                        var reader = new FileReader();
-
-                        reader.onload = function(e) {
-                            $('#select')
-                                .attr('src', e.target.result)
-                                .width(300)
-                                .height(200);
-
-                        };
-
-                        reader.readAsDataURL(input. files[0]);
-                    }
-                }
-                $(document).ready(function() {
-                    var scrollPosition = sessionStorage.getItem('scrollPosition');
-                    if (scrollPosition != null) {
-                        $(window).scrollTop(scrollPosition);
-                        sessionStorage.removeItem('scrollPosition');
-                    }
-                });
-            </script>
 
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand">AQademy</a>

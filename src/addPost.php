@@ -1,4 +1,5 @@
 <?php
+session_start(); // Start the session
 
 $servername = "mysql";
 $db = "cloud_computing";
@@ -14,23 +15,34 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST["username"];
-    $password = $_POST["password"];
-    
-    // Hash the password (you should use a more secure hash function)
-    // $hashedPassword = sha1($password); // Replace with a more secure hashing method
-    
-    // Query the database for the user's credentials
-    $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        // User found, redirect to the home page
-        header("Location: home.php");
-        exit;
+    // Check if the username session variable is set
+    if (isset($_SESSION['username'])) {
+        // Get the username from the session
+        $username = $_SESSION['username'];
+        $title = $_POST["title"];
+        $content = $_POST["content"];
+        
+        // Set time
+        $timezone = 'Australia/Brisbane';
+        $timestamp = time();
+        $datetime = new \DateTime("now", new \DateTimeZone($timezone));
+        $datetime->setTimestamp($timestamp);
+        $datetime_str = $datetime->format('Y-m-d H:i:s');
+        
+        // Insert the post into the database
+        $sql = "INSERT INTO posts (title, username, content, datetime) VALUES ('$title', '$username', '$content', '$datetime_str')";
+        
+        if ($conn->query($sql) === TRUE) {
+            // Post successfully added, redirect to the home page
+            header("Location: home.php");
+            exit;
+        } else {
+            // Error occurred while adding the post
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     } else {
-        // User not found or password doesn't match
-        echo "<script>alert('Invalid User');</script>";
+        // Username is not set in the session
+        echo "Username not found in the session.";
     }
 }
 

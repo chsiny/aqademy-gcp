@@ -97,132 +97,27 @@
             </nav>
             
             <div class="container">
-    <br><br>
-  <div class="row">
-    <div class="col-md-12">
-      <h1>Posts</h1>
-      <a href="newPost.php" class="btn btn-primary float-right">Add New Post</a>
-    </div>
-  </div>
-  <br>
-<?php
-
-$servername = "mysql";
-$db = "cloud_computing";
-$username = "php";
-$password = "php";
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $db);
-
-// Check the database connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "SELECT * FROM posts WHERE isComment = 0";
-
-$result = $conn->query($sql);
-$posts = [];
-while ($row = $result->fetch_assoc()) {
-    $posts[] = $row;
-}
-
-?>
-
-    <div class="row post-container">
-        <?php foreach ($posts as $post) : ?>
-            <div class="col-md-4">
-                <div class="card mb-4 box-shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <?= $post['title'] ?>
-                            <a data-post-id="<?= $post['postId'] ?>" class="bookmarkBtn btn btn-outline-success btn-sm float-right">Bookmark</a>
-                        </h5>
-                        <p class="card-text">By <?= $post['username'] ?></p>
-                        <p style="font-size:12px" class="card-text"><?= $post['datetime'] ?></p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="post.php?id=<?= $post['postId'] ?>" class="btn btn-sm btn-outline-info">View</a>
-                            </div>
-                            <small class="text-muted">Likes: <?= $post['upvotes'] ?></small>
-                        </div>
-                    </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                <h1>Add a new post:</h1>
                 </div>
             </div>
-        <?php endforeach; ?>
-        <div id="loading-spinner" class="col-md-12 text-center" style="display:none;">
-            <i class="fa fa-spinner fa-spin fa-3x"></i>
-        </div>
+            <br>
 
-    </div>
-<?php
-// Close data connection
-    $conn->close();
-?>
-
-</div>
-
-<script>
-    
-    var start = <?= count($posts) ?>;
-  $(window).scroll(function() {
-
-    console.log('scrolling');
-    console.log($(document).height());
-    console.log($(window).scrollTop());
-    console.log($(window).height());
-    console.log(start);
-    sessionStorage.setItem('scrollPosition', $(window).scrollTop());
-    if($(window).scrollTop() + 752.01 > $(document).height()) {
-        
-        $('#loading-spinner').show();
-           // ajax call get data from server and append to the div
-        $.ajax({
-            url: '<?= base_url('/posts/loadPosts') ?>',
-            method: 'POST',
-            data: {start:start},
-            success: function(response){
-                console.log(response);
-                start += 3;
-                $('.post-container').append(response);
-                if(response.trim() == '') {
-                    $('#load-more-btn').attr('disabled', true);
-                }
-            },
-            complete: function() {
-                // hide loading spinner
-                $('#loading-spinner').hide();
-            }
-        });
-    }
-});
-</script>
-            <script>
-  $(document).ready(function() {
-    $(document).on('click', '.bookmarkBtn', function() {
-      var postId = $(this).data('post-id');
-      $.ajax({
-        url: '<?= base_url('bookmark/') ?>' + postId,
-        method: 'GET',
-        success: function(response) {
-          if (response.status == 'success') {
-            alert("Successfully bookmarked!");
-            window.location.reload();
-          } else if (response.status == 'already_bookmarked') {
-            alert("This post is already bookmarked!");
-          } else {
-            alert("Error occurred while bookmarking the post!");
-          }
-        },
-        error: function(xhr, status, error) {
-          console.log(xhr.responseText);
-        }
-      });
-    });
-  });
-</script>
-
+            <form method="post" action="addPost.php">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="content">Content</label>
+                    <textarea name="content" class="form-control" rows="5" required></textarea>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Create Post</button>
+            </form>
 
 <footer>
     <div class="container">

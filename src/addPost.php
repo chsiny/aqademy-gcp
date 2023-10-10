@@ -24,10 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
     $result = $conn->query($sql);
 
-    session_start();
     if ($result->num_rows > 0) {
-        $_SESSION['username'] = $username;
-        setcookie('username', $username, time() + (7 * 24 * 60 * 60), "/");
         // User found, redirect to the home page
         header("Location: home.php");
         exit;

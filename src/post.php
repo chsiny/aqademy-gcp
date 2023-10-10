@@ -169,7 +169,6 @@ if (isset($_GET['id'])) {
     // Handle cases where no post ID is provided (e.g., show an error message)
     echo "Post not found.";
 }
-endif;
 ?>
 </div>
 

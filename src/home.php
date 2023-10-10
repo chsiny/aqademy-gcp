@@ -1,7 +1,7 @@
 <?php
 session_start(); // Start the session
 
-if !($_SERVER["REQUEST_METHOD"] == "POST") {
+if (!isset($_SESSION['username'])) {
     header("Location: index.php");
     exit;
 }

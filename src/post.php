@@ -147,7 +147,7 @@ if (isset($_GET['id'])) {
             <?php endforeach; ?>
         <?php } else { ?>
             <p>No comments yet.</p>
-        <?php } endif; ?>
+        <?php } ?>
         <hr>
         <h4>Add a comment</h4>
         <form method="post" action="#">
@@ -161,7 +161,7 @@ if (isset($_GET['id'])) {
 
     <?php } else { ?>
     <p>Post not found.</p>
-    <?php } endif; 
+    <?php }
     // Close the database connection
     $conn->close(); 
 

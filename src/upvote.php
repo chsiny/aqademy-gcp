@@ -6,63 +6,58 @@ if (!isset($_SESSION['username'])) {
     exit;
 }
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (isset($_POST['post_id'])) {
-        $postId = $_POST['post_id'];
+// Check if a post ID is provided in the request
+if (isset($_POST['post_id'])) {
+    $postId = $_POST['post_id'];
 
-        // Establish a database connection (similar to other PHP files)
-        $servername = "mysql";
-        $db = "cloud_computing";
-        $username = "php";
-        $password = "php";
-        
-        // Create connection
-        $conn = mysqli_connect($servername, $username, $password, $db);
-        
-        // Check the database connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+    // Connect to your database (similar to what you did in other PHP files)
 
-        // Update the upvotes count in the database
-        $sql = "UPDATE posts SET upvotes = upvotes + 1 WHERE postId = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $postId); // "i" indicates an integer
-        $stmt->execute();
-        $updatedUpvotes = fetchUpdatedUpvotes($conn, $postId);
-        
-        if ($updatedUpvotes !== false) {
-            // Return a response with the updated upvotes count
-            $response = [
-                'status' => 'success',
-                'upvotes' => $updatedUpvotes,
-            ];
-            echo json_encode($response);
-        } else {
-            // Handle the case where fetching the updated upvotes failed
-            $response = [
-                'status' => 'error',
-                'message' => 'Error updating upvotes count.',
-            ];
-            echo json_encode($response);
-        }
+    // Update the upvotes count in the database
+    $sql = "UPDATE posts SET upvotes = upvotes + 1 WHERE postId = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $postId); // "i" indicates an integer
+    $stmt->execute();
 
+    // Fetch the updated upvotes count from the database
+    $updatedUpvotes = fetchUpdatedUpvotes($conn, $postId);
+
+    if ($updatedUpvotes !== false) {
+        // Return a response with the updated upvotes count
+        $response = [
+            'status' => 'success',
+            'upvotes' => $updatedUpvotes,
+        ];
+        echo json_encode($response);
     } else {
-        // Invalid request, handle accordingly
+        // Handle the case where fetching the updated upvotes failed
         $response = [
             'status' => 'error',
-            'message' => 'Invalid request.',
+            'message' => 'Error updating upvotes count.',
         ];
-        header('Content-Type: application/json');
         echo json_encode($response);
     }
 } else {
-    // Invalid request method, handle accordingly
+    // Invalid request, handle accordingly
     $response = [
         'status' => 'error',
-        'message' => 'Invalid request method.',
+        'message' => 'Invalid request.',
     ];
-    header('Content-Type: application/json');
     echo json_encode($response);
+}
+
+// Function to fetch the updated upvotes count
+function fetchUpdatedUpvotes($conn, $postId) {
+    $sql = "SELECT upvotes FROM posts WHERE postId = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $postId); // "i" indicates an integer
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row['upvotes'];
+    } else {
+        return false;
+    }
 }
 ?>

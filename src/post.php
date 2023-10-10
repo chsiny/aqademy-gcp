@@ -132,7 +132,7 @@ if (isset($_GET['id'])) {
         <label>Likes: </label>
         <small id="upvote"><?= $post['upvotes'] ?></small>
         <br>
-        <button id="upvote-btn" class="btn btn-primary" data-post-id="<?= $post['postId'] ?>" data-url="#">Upvote</button>
+        <button id="upvote-btn" class="btn btn-primary" data-post-id="<?= $post['postId'] ?>">Upvote</button>
         <hr>
         <h3>Comments</h3>
         <?php 

@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         if ($conn->query($sql) === TRUE) {
             // Post successfully added, redirect to the home page
-            header("Location: post.php?id=" . $postId);
+            header("Location: post?id=" . $postId);
             exit;
         } else {
             // Error occurred while adding the post

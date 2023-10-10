@@ -28,24 +28,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $sql = "UPDATE posts SET upvotes = upvotes + 1 WHERE postId = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $postId); // "i" indicates an integer
-        if ($stmt->execute()) {
-            // Return a JSON response indicating success
+        $stmt->execute();
+        $updatedUpvotes = fetchUpdatedUpvotes($conn, $postId);
+        
+        if ($updatedUpvotes !== false) {
+            // Return a response with the updated upvotes count
             $response = [
                 'status' => 'success',
-                'message' => 'Upvote successful!',
+                'upvotes' => $updatedUpvotes,
             ];
+            echo json_encode($response);
         } else {
-            // Return a JSON response indicating an error
+            // Handle the case where fetching the updated upvotes failed
             $response = [
                 'status' => 'error',
-                'message' => 'Upvote failed.',
+                'message' => 'Error updating upvotes count.',
             ];
+            echo json_encode($response);
         }
 
-        // Close the database connection (similar to other PHP files)
-
-        header('Content-Type: application/json');
-        echo json_encode($response);
     } else {
         // Invalid request, handle accordingly
         $response = [

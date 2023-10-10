@@ -126,9 +126,9 @@ if (isset($_GET['id'])) {
         // Fetch the post data
         $post = $result->fetch_assoc();
     ?>
-        <h1><?php echo $post->title; ?></h1>
-        <p><?php echo $post->content; ?></p>
-        <p>Posted by <?php echo $post->username; ?> on <?php echo date('F j, Y, g:i a', strtotime($post->datetime)); ?></p>
+        <h1><?php echo $post[title]; ?></h1>
+        <p><?php echo $post[content]; ?></p>
+        <p>Posted by <?php echo $post[username]; ?> on <?php echo date('F j, Y, g:i a', strtotime($post[datetime])); ?></p>
         <label>Likes: </label>
         <small id="upvote"><?= $post->upvotes ?></small>
         <br>
@@ -152,7 +152,7 @@ if (isset($_GET['id'])) {
         <h4>Add a comment</h4>
         <form method="post" action="#">
             <div class="form-group">
-            <input type="hidden" name="postId" value="<?php echo $post->postId; ?>">
+            <input type="hidden" name="postId" value="<?php echo $post[postId]; ?>">
             <label for="content">Comment</label>
             <textarea class="form-control" name="content" rows="3" required></textarea>
             </div>

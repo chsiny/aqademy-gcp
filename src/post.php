@@ -160,7 +160,7 @@ if (isset($_GET['id'])) {
         <?php } ?>
         <hr>
         <h4>Add a comment</h4>
-        <form method="post" action="#">
+        <form method="post" action="addComment.php">
             <div class="form-group">
             <input type="hidden" name="postId" value="<?php echo $post['postId']; ?>">
             <label for="content">Comment</label>

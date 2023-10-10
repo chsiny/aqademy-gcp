@@ -31,7 +31,7 @@ $(document).ready(function() {
       $.ajax({
           type: 'POST',
           url: '../../upvote.php',
-          data: { 'post_id': post_id, 'csrf_token': csrfToken }, // replace 'csrfToken' with your actual token
+          data: { 'post_id': post_id }, // replace 'csrfToken' with your actual token
           dataType: 'json',
           success: function(response) {
               console.log('Response:', response); // Debug statement

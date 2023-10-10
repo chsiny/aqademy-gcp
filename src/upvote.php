@@ -28,12 +28,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $sql = "UPDATE posts SET upvotes = upvotes + 1 WHERE postId = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $postId); // "i" indicates an integer
-        
+
         if ($stmt->execute()) {
             // Return a JSON response indicating success
+            // Fetch the updated upvotes count
+            $sql = "SELECT upvotes FROM posts WHERE postId = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $postId); // "i" indicates an integer
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            $upvotes = $row['upvotes'];
+
+            // Return a JSON response indicating success and the updated upvotes count
             $response = [
                 'status' => 'success',
                 'message' => 'Upvote successful!',
+                'upvotes' => $upvotes, // Include the updated upvotes count
             ];
         } else {
             // Return a JSON response indicating an error

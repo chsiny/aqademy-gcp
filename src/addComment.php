@@ -19,7 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_SESSION['username'])) {
         // Get the username from the session
         $username = $_SESSION['username'];
-        $title = $_POST["title"];
         $content = $_POST["content"];
         $postId = $_POST["postId"];
         
@@ -31,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $datetime_str = $datetime->format('Y-m-d H:i:s');
         
         // Insert the post into the database
-        $sql = "INSERT INTO comments (title, username, content, datetime, postId) VALUES ('$title', '$username', '$content', '$datetime_str', '$postId')";
+        $sql = "INSERT INTO comments (username, content, datetime, postId) VALUES ('$username', '$content', '$datetime_str', '$postId')";
         
         if ($conn->query($sql) === TRUE) {
             // Post successfully added, redirect to the home page

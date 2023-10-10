@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = $_SESSION['username'];
         $title = $_POST["title"];
         $content = $_POST["content"];
-        $postId = $_POST["postId"]
+        $postId = $_POST["postId"];
         
         // Set time
         $timezone = 'Australia/Brisbane';

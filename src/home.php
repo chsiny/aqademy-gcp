@@ -1,3 +1,11 @@
+<?php
+session_start(); // Start the session
+
+if !($_SERVER["REQUEST_METHOD"] == "POST") {
+    header("Location: index.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html>
         <head>
@@ -60,7 +68,7 @@
             </script>
 
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand">AQademy</a>
+                <a class="navbar-brand" href="home.php">AQademy</a>
                     <form class="form-inline my-2 my-lg-0" action="'searchPosts.php" method="GET">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-box" name="searchTitle">
                         <input type="hidden" id="post-id" name="postId">

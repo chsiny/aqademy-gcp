@@ -95,110 +95,84 @@
                     </ul>
                 </div>
             </nav>
-            
-            <div class="container">
-    <br><br>
-  <div class="row">
-    <div class="col-md-12">
-      <h1>Posts</h1>
-      <a href="addPost.php" class="btn btn-primary float-right">Add New Post</a>
-    </div>
-  </div>
-  <br>
+            <div class="container mt-3">
 <?php
+// Check if a post ID is provided in the URL
+if (isset($_GET['id'])) {
+    $postId = $_GET['id'];
 
-$servername = "mysql";
-$db = "cloud_computing";
-$username = "php";
-$password = "php";
+    // Now you can use $postId to fetch and display the specific post
+    $servername = "mysql";
+    $db = "cloud_computing";
+    $username = "php";
+    $password = "php";
+    
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password, $db);
+    
+    // Check the database connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    
+    // Prepare and execute a SQL query to fetch the post by postId
+    $sql = "SELECT * FROM posts WHERE postId = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $postId); // "i" indicates an integer
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $db);
-
-// Check the database connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "SELECT * FROM posts WHERE isComment = 0";
-
-$result = $conn->query($sql);
-$posts = [];
-while ($row = $result->fetch_assoc()) {
-    $posts[] = $row;
-}
-
-?>
-
-    <div class="row post-container">
-        <?php foreach ($posts as $post) : ?>
-            <div class="col-md-4">
-                <div class="card mb-4 box-shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <?= $post['title'] ?>
-                            <a data-post-id="<?= $post['postId'] ?>" class="bookmarkBtn btn btn-outline-success btn-sm float-right">Bookmark</a>
-                        </h5>
-                        <p class="card-text">By <?= $post['username'] ?></p>
-                        <p style="font-size:12px" class="card-text"><?= $post['datetime'] ?></p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="post.php?id=<?= $post['postId'] ?>" class="btn btn-sm btn-outline-info">View</a>
-                            </div>
-                            <small class="text-muted">Likes: <?= $post['upvotes'] ?></small>
-                        </div>
-                    </div>
-                </div>
+    if ($result->num_rows > 0) {
+        // Fetch the post data
+        $post = $result->fetch_assoc();
+    ?>
+    <h1><?php echo $post->title; ?></h1>
+    <p><?php echo $post->content; ?></p>
+    <p>Posted by <?php echo $post->username; ?> on <?php echo date('F j, Y, g:i a', strtotime($post->datetime)); ?></p>
+    <label>Likes: </label>
+    <small id="upvote"><?= $post->upvotes ?></small>
+    <br>
+    <button id="upvote-btn" class="btn btn-primary" data-post-id="<?= $post->postId ?>" data-url="#">Upvote</button>
+    <hr>
+    <h3>Comments</h3>
+    <?php if ($comments) : ?>
+        <?php foreach ($comments as $comment) : ?>
+        <div class="card mb-3">
+            <div class="card-body">
+            <h5 class="card-title"><?php echo $comment['username']; ?></h5>
+            <p class="card-text"><?php echo $comment['content']; ?></p>
+            <p class="card-text"><small class="text-muted">Posted on <?php echo date('F j, Y, g:i a', strtotime($comment['datetime'])); ?></small></p>
             </div>
-        <?php endforeach; ?>
-        <div id="loading-spinner" class="col-md-12 text-center" style="display:none;">
-            <i class="fa fa-spinner fa-spin fa-3x"></i>
         </div>
+        <?php endforeach; ?>
+    <?php else : ?>
+        <p>No comments yet.</p>
+    <?php endif; ?>
+    <hr>
+    <h4>Add a comment</h4>
+    <form method="post" action="#">
+        <div class="form-group">
+        <input type="hidden" name="postId" value="<?php echo $post->postId; ?>">
+        <label for="content">Comment</label>
+        <textarea class="form-control" name="content" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 
-    </div>
-<?php
-// Close data connection
+    <?php else : ?>
+    <p>Post not found.</p>
+    <?php endif;
+    // Close the database connection
     $conn->close();
+} else {
+    // Handle cases where no post ID is provided (e.g., show an error message)
+    echo "Post not found.";
+}
 ?>
-
 </div>
 
+<script src="assets/js/upvote.js"></script>
 <script>
-    
-    var start = <?= count($posts) ?>;
-  $(window).scroll(function() {
-
-    console.log('scrolling');
-    console.log($(document).height());
-    console.log($(window).scrollTop());
-    console.log($(window).height());
-    console.log(start);
-    sessionStorage.setItem('scrollPosition', $(window).scrollTop());
-    if($(window).scrollTop() + 752.01 > $(document).height()) {
-        
-        $('#loading-spinner').show();
-           // ajax call get data from server and append to the div
-        $.ajax({
-            url: '<?= base_url('/posts/loadPosts') ?>',
-            method: 'POST',
-            data: {start:start},
-            success: function(response){
-                console.log(response);
-                start += 3;
-                $('.post-container').append(response);
-                if(response.trim() == '') {
-                    $('#load-more-btn').attr('disabled', true);
-                }
-            },
-            complete: function() {
-                // hide loading spinner
-                $('#loading-spinner').hide();
-            }
-        });
-    }
-});
-</script>
-            <script>
   $(document).ready(function() {
     $(document).on('click', '.bookmarkBtn', function() {
       var postId = $(this).data('post-id');

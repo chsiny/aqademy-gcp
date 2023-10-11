@@ -18,20 +18,20 @@ spec:
         - name: myphp
           image: php:8.2-fpm # Replace with your Docker image name and tag
           ports:
-            - containerPort: 9000 # Assuming your PHP application runs on port 9000
+            - containerPort: 80 # Assuming your PHP application runs on port 9000
           volumeMounts:
             - name: app-volume
               mountPath: /var/www/html
-        - name: mynginx
-          image: nginx:latest
-          ports:
-            - containerPort: 80
-          volumeMounts:
-            - name: app-volume
-              mountPath: /var/www/html
-      volumes:
-        - name: app-volume
-          emptyDir: {}
+      #   - name: mynginx
+      #     image: nginx:latest
+      #     ports:
+      #       - containerPort: 80
+      #     volumeMounts:
+      #       - name: app-volume
+      #         mountPath: /var/www/html
+      # volumes:
+      #   - name: app-volume
+      #     emptyDir: {}
 
 ---
 apiVersion: v1
@@ -39,10 +39,12 @@ kind: Service
 metadata:
   name: aqademy
 spec:
+  type: NodePort
   selector:
     app: aqademy
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 9000 # Assuming your PHP application runs on port 9000
-  type: LoadBalancer # Use 'LoadBalancer' if you want an external IP (requires cloud provider support)
+      targetPort: 80 # Assuming your PHP application runs on port 9000
+      nodePort: 30100
+  # type: LoadBalancer # Use 'LoadBalancer' if you want an external IP (requires cloud provider support)

@@ -30,72 +30,72 @@
         margin-top: 0;
     }
 </style>
-        </head>
-        <body class="bg-light">
-            <script>
-                // Show select image using file input.
-                function readURL(input) {
-                    $('#default_img').show();
-                    if (input.files && input.files[0]) {
-                        var reader = new FileReader();
+    </head>
+    <body class="bg-light">
+        <script>
+            // Show select image using file input.
+            function readURL(input) {
+                $('#default_img').show();
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
 
-                        reader.onload = function(e) {
-                            $('#select')
-                                .attr('src', e.target.result)
-                                .width(300)
-                                .height(200);
+                    reader.onload = function(e) {
+                        $('#select')
+                            .attr('src', e.target.result)
+                            .width(300)
+                            .height(200);
 
-                        };
+                    };
 
-                        reader.readAsDataURL(input. files[0]);
-                    }
+                    reader.readAsDataURL(input. files[0]);
                 }
-                $(document).ready(function() {
-                    var scrollPosition = sessionStorage.getItem('scrollPosition');
-                    if (scrollPosition != null) {
-                        $(window).scrollTop(scrollPosition);
-                        sessionStorage.removeItem('scrollPosition');
-                    }
-                });
-            </script>
+            }
+            $(document).ready(function() {
+                var scrollPosition = sessionStorage.getItem('scrollPosition');
+                if (scrollPosition != null) {
+                    $(window).scrollTop(scrollPosition);
+                    sessionStorage.removeItem('scrollPosition');
+                }
+            });
+        </script>
 
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="home.php">AQademy</a>
-                    <form class="form-inline my-2 my-lg-0" action="'searchPosts.php" method="GET">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-box" name="searchTitle">
-                        <input type="hidden" id="post-id" name="postId">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="home.php">AQademy</a>
+                <form class="form-inline my-2 my-lg-0" action="'searchPosts.php" method="GET">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-box" name="searchTitle">
+                    <input type="hidden" id="post-id" name="postId">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
 
-                    
-                    <ul class="navbar-nav ml-auto">
+                
+                <ul class="navbar-nav ml-auto">
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Notification</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                            User
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a class="dropdown-item" href="#">Bookmarks</a></li>
-                            <li><a class="dropdown-item" href="#">Setting</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="logout.php"> Logout </a></li>
-                            </ul>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Notification</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                        User
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a class="dropdown-item" href="#">Bookmarks</a></li>
+                        <li><a class="dropdown-item" href="#">Setting</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="logout.php"> Logout </a></li>
+                        </ul>
+                    </li>
 
-                    </ul>
-                </div>
-            </nav>
-            <div class="container mt-3">
+                </ul>
+            </div>
+        </nav>
+        <div class="container mt-3">
 <?php
 // Check if a post ID is provided in the URL
 if (isset($_GET['id'])) {

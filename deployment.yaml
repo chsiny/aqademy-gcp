@@ -29,9 +29,9 @@ spec:
           volumeMounts:
             - name: app-volume
               mountPath: /var/www/html
-        volumes:
-          - name: app-volume
-            emptyDir: {}
+      volumes:
+        - name: app-volume
+          emptyDir: {}
 
 ---
 apiVersion: v1

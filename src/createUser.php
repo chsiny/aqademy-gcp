@@ -39,8 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: index.php");
         exit;
     } else {
-        $_SESSION['error'] = "Registration failed. Please try again.";
-        header("Location: register.php");
+        echo "Error: " . $sql . "<br>" . $conn->error;
         exit;
     }
 } else {

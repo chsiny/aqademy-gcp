@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
-    
+
     // Check if the username already exists in the database
     $checkUserQuery = "SELECT * FROM users WHERE username = ?";
     $stmt = $conn->prepare($checkUserQuery);
@@ -31,12 +31,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // If the username and email are unique, insert the new user into the database
-    $insertUserQuery = "INSERT INTO users (username, password) VALUES (?, ?)";
+    $sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
 
-    $stmt = $conn->prepare($insertUserQuery);
-    $stmt->bind_param("ss", $username, $password);
-
-    if ($stmt->execute()) {
+    if ($conn->query($sql) === TRUE) {
         // Registration successful, redirect to the login page
         $_SESSION['success'] = "Registration successful! You can now log in.";
         header("Location: login.php");

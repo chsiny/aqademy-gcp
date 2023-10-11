@@ -7,6 +7,6 @@ spec:
     app: aqademy
   ports:
     - protocol: TCP
-      port: 9000
+      port: 80
       targetPort: 80
   type: LoadBalancer # Use 'LoadBalancer' if you want an external IP (requires cloud provider support)

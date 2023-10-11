@@ -18,14 +18,14 @@ spec:
         - name: myphp
           image: php:8.2-fpm # Replace with your Docker image name and tag
           ports:
-            - containerPort: 80 # Assuming your PHP application runs on port 9000
+            - containerPort: 9000 # Assuming your PHP application runs on port 9000
           volumeMounts:
             - name: app-volume
               mountPath: /var/www/html
         - name: mynginx
           image: nginx:latest
           ports:
-            - containerPort: 80
+            - containerPort: "8080:80"
           volumeMounts:
             - name: app-volume
               mountPath: /var/www/html

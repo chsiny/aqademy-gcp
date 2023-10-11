@@ -25,7 +25,7 @@ spec:
         - name: mynginx
           image: nginx:latest
           ports:
-            - containerPort: "8080:80"
+            - containerPort: 80
           volumeMounts:
             - name: app-volume
               mountPath: /var/www/html

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: aqademy-deployment
+  name: aqademy
   labels:
     app: aqademy
 spec:
@@ -22,29 +22,29 @@ spec:
           volumeMounts:
             - name: app-volume
               mountPath: /var/www/html
-      #   - name: mynginx
-      #     image: nginx:latest
-      #     ports:
-      #       - containerPort: 80
-      #     volumeMounts:
-      #       - name: app-volume
-      #         mountPath: /var/www/html
-      # volumes:
-      #   - name: app-volume
-      #     emptyDir: {}
+        - name: mynginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: app-volume
+              mountPath: /var/www/html
+      volumes:
+        - name: app-volume
+          emptyDir: {}
 
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: aqademy
-spec:
-  type: NodePort
-  selector:
-    app: aqademy
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80 # Assuming your PHP application runs on port 9000
-      nodePort: 30100
-  # type: LoadBalancer # Use 'LoadBalancer' if you want an external IP (requires cloud provider support)
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: aqademy
+# spec:
+#   type: NodePort
+#   selector:
+#     app: aqademy
+#   ports:
+#     - protocol: TCP
+#       port: 80
+#       targetPort: 80 # Assuming your PHP application runs on port 9000
+#       nodePort: 30100
+#   # type: LoadBalancer # Use 'LoadBalancer' if you want an external IP (requires cloud provider support)

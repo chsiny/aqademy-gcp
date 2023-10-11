@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the username already exists in the database
     $checkUserQuery = "SELECT * FROM users WHERE username = ?";
     $stmt = $conn->prepare($checkUserQuery);
-    $stmt->bind_param("ss", $username, $email);
+    $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $insertUserQuery = "INSERT INTO users (username, password) VALUES (?, ?)";
 
     $stmt = $conn->prepare($insertUserQuery);
-    $stmt->bind_param("sss", $username, $password);
+    $stmt->bind_param("ss", $username, $password);
 
     if ($stmt->execute()) {
         // Registration successful, redirect to the login page

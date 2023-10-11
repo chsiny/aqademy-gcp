@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($conn->query($sql) === TRUE) {
         // Registration successful, redirect to the login page
         $_SESSION['success'] = "Registration successful! You can now log in.";
-        header("Location: login.php");
+        header("Location: index.php");
         exit;
     } else {
         $_SESSION['error'] = "Registration failed. Please try again.";

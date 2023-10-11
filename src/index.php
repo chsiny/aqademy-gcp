@@ -82,51 +82,24 @@
                 <div class="col-4 offset-4">
                     <br><br>
 
-                            <h2 class="text-center">Login</h2> 
-                            <br><br>      
-                            <form action="login.php" method="post">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Username" required="required" name="username">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Password" required="required" name="password">
-                                </div>
+                    <h2 class="text-center">Login</h2> 
+                    <br><br>      
+                    <form action="login.php" method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Username" required="required" name="username">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Password" required="required" name="password">
+                        </div>
 
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">Log in</button>
-                                </div>
-                                <div class="clearfix">
-                                    <label class="float-left form-check-label"><input type="checkbox" name="remember"> Remember me</label>
-                                    <!-- <a href="<?php echo base_url('forget_password')?>" class="float-right">Forgot Password?</a> -->
-                                </div>
-                            </form>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+                        </div>
+
+                    </form>
+
                 </div>
             </div>
-            <script>
-  $(document).ready(function() {
-    $(document).on('click', '.bookmarkBtn', function() {
-      var postId = $(this).data('post-id');
-      $.ajax({
-        url: '<?= base_url('bookmark/') ?>' + postId,
-        method: 'GET',
-        success: function(response) {
-          if (response.status == 'success') {
-            alert("Successfully bookmarked!");
-            window.location.reload();
-          } else if (response.status == 'already_bookmarked') {
-            alert("This post is already bookmarked!");
-          } else {
-            alert("Error occurred while bookmarking the post!");
-          }
-        },
-        error: function(xhr, status, error) {
-          console.log(xhr.responseText);
-        }
-      });
-    });
-  });
-</script>
-
 
 <footer>
     <div class="container">

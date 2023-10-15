@@ -1,5 +1,4 @@
-# Use the official PHP 8.2 image as the base image
 FROM php:8.2-fpm
 
-# Install system dependencies and the mysqli extension
-RUN apt-get update 
+RUN pecl install mysqli && \
+    docker-php-ext-enable mysqli

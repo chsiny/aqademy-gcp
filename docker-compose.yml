@@ -2,7 +2,7 @@ version: '3.3'
 
 networks:
   mynet:
-    driver: overlay
+    driver: bridge
 
 services:
   mysql:
@@ -29,7 +29,7 @@ services:
     depends_on:
       - mysql
     networks:
-      - 'mynet'
+      - mynet
 
   mynginx:
     container_name: mynginx

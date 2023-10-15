@@ -1,8 +1,9 @@
+- docker-compose.yml
 version: '3.3'
 
 networks:
   mynet:
-    driver: overlay
+    driver: bridge
 
 services:
   mysql:

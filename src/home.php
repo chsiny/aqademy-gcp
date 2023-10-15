@@ -128,7 +128,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM posts WHERE isComment = 0";
+$sql = "SELECT * FROM posts";
 
 $result = $conn->query($sql);
 $posts = [];

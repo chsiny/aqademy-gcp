@@ -18,6 +18,7 @@ services:
 
   myphp:
     container_name: myphp
+    image: myphp
     build:
       context: ./src/php/
       dockerfile: dockerfile

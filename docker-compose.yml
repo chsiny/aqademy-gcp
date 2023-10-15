@@ -13,6 +13,8 @@ services:
       MYSQL_DATABASE: cloud_computing
       MYSQL_USER: php
       MYSQL_PASSWORD: php
+    volumes:
+      - ./src/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - mynet
 

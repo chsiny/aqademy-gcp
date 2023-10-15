@@ -128,7 +128,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM posts";
+$sql = "SELECT * FROM posts ORDER BY postId DESC";
 
 $result = $conn->query($sql);
 $posts = [];

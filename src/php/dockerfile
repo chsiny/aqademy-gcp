@@ -1,3 +1,6 @@
 FROM php:8.2-fpm
 
-RUN docker-php-ext-install mysqli && \
+RUN pecl install redis && \
+    docker-php-ext-enable redis && \
+    docker-php-ext-install mysqli && \
+    echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini

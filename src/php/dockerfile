@@ -1,3 +1,7 @@
 FROM php:8.2-fpm
 
-RUN pecl install mysqli && docker-php-ext-enable mysqli
+# Install the required system dependencies
+RUN apt-get update && apt-get install -y libmysqli-dev
+
+# Enable the mysqli extension
+RUN docker-php-ext-install mysqli

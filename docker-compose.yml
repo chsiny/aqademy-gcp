@@ -22,7 +22,7 @@ services:
     container_name: myphp
     image: myphp
     build:
-      context: ./src/php/
+      context: ~/aqademy_gcp/src/php/
       dockerfile: dockerfile
     expose:
       - 9000

@@ -17,7 +17,8 @@ CREATE TABLE comments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
-    datetime DATETIME DEFAULT CURRENT_TIMESTAMP
+    datetime DATETIME DEFAULT CURRENT_TIMESTAMP,
+    postId INT NOT NULL
 );
 
 INSERT INTO users (username, password) VALUES ('admin', 'admin');

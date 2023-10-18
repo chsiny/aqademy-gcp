@@ -1,0 +1,29 @@
+* INFS3208 Command:
+
+* git clone the application directory
+git clone https://github.com/chsiny/aqademy_gcp.git
+
+* Deploy
+docker stack deploy -c docker-compose.yml hello
+
+* Check nodes
+docker node ls
+
+* Check services
+docker service ls
+docker stack ps hello -f "desired-state=running"
+docker service ps hello_mynginx
+
+* Rollout & rollback
+docker service update --image nginx:1.25 hello_mynginx
+docker service rollback hello_mynginx
+
+* Remove service
+docker service rm hello_phpmyadmin
+
+* Service scale up & down
+docker service scale hello_mynginx=3
+
+* Remove node from Swarm and Rejoin
+docker node rm instance-4
+docker swarm join-token worker

@@ -7,18 +7,21 @@ CREATE TABLE users (
 CREATE TABLE posts (
     postId INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    username VARCHAR(255) FOREIGN KEY REFERENCES users(username),
+    username VARCHAR(255),
     content TEXT NOT NULL,
     datetime DATETIME DEFAULT CURRENT_TIMESTAMP,
-    upvotes INT DEFAULT 0
+    upvotes INT DEFAULT 0,
+    FOREIGN KEY (username) REFERENCES users(username)
 );
 
 CREATE TABLE comments (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) FOREIGN KEY REFERENCES users(username),
+    username VARCHAR(255),
     content TEXT NOT NULL,
     datetime DATETIME DEFAULT CURRENT_TIMESTAMP,
-    postId INT FOREIGN KEY REFERENCES posts(postId)
+    postId INT,
+    FOREIGN KEY (username) REFERENCES users(username),
+    FOREIGN KEY (postId) REFERENCES posts(postId)
 );
 
 INSERT INTO users (username, password) VALUES ('admin', 'admin');

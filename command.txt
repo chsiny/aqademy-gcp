@@ -18,12 +18,5 @@ docker service ps hello_mynginx
 docker service update --image nginx:1.25 hello_mynginx
 docker service rollback hello_mynginx
 
-* Remove service
-docker service rm hello_phpmyadmin
-
 * Service scale up & down
 docker service scale hello_mynginx=3
-
-* Remove node from Swarm and Rejoin
-docker node rm instance-4
-docker swarm join-token worker
